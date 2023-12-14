@@ -16,7 +16,6 @@ from PIL import Image
 from win11toast import toast
 
 
-print(1)
 location = ip.get()
 #location = '14.241.238.138'
 
