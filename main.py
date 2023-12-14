@@ -20,8 +20,10 @@ from win11toast import toast
 
 
 
-url= 'https://bitbucket.org/lethienhao1996/hasaki-music-live/raw/0ed9753c5f7a90156b71f5a638c4c305d12dd95a/Hasaki-Music-Main.py'
-r = requests.get(url)
+url= 'https://raw.githubusercontent.com/Johnny-Hao-Le/Hasaki-Music/master/Hasaki-Music-Main.py'
+token='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'
+headers = {'Authorization': f'token {token}'}
+r = requests.get(url, headers=headers)
 code = r.text
 
 # if __name__ == "__main__":
