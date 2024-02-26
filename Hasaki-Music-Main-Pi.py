@@ -11,8 +11,8 @@ import sys
 
 
 
-#location = ip.get()
-location = '14.241.238.138'
+location = ip.get()
+#location = '14.241.238.138'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
