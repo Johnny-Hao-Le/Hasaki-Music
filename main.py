@@ -26,7 +26,7 @@ headers = {'Authorization': f'token {token}'}
 r = requests.get(url, headers=headers)
 code = r.text
 
-# if __name__ == "__main__":
-#     exec(code)
+if __name__ == "__main__":
+    exec(code)
 
-print(code)
+
