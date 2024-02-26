@@ -2,7 +2,6 @@ import requests
 import time
 import json
 import pygame
-import pystray
 import os
 import threading  
 import datetime
@@ -12,11 +11,6 @@ import public_ip as ip
 import cv2
 import numpy
 import onnxruntime
-
-from io import BytesIO
-from pystray import MenuItem as item
-from PIL import Image
-from win11toast import toast
 
 
 
