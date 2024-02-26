@@ -1,0 +1,7 @@
+onnxruntime
+pygame
+public-ip
+requests
+python-vlc
+configparser
+opencv-python
