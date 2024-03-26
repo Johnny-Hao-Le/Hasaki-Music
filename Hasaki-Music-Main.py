@@ -13,11 +13,11 @@ import sys
 from io import BytesIO
 from pystray import MenuItem as item
 from PIL import Image
-from win11toast import toast
+# from win11toast import toast
 
 
-location = ip.get()
-#location = '14.241.238.138'
+#location = ip.get()
+location = '14.241.238.138'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -93,13 +93,13 @@ def hasaki_ringtone():
                                 time.sleep(10)     
 
         elif location == '123.30.249.178':
-            toast('Không thể phát Hasaki Ringtone', 'Đang sử dụng VPN. Hãy tắt VPN và thử lại.')
+            # toast('Không thể phát Hasaki Ringtone', 'Đang sử dụng VPN. Hãy tắt VPN và thử lại.')
             os._exit(0)
             
     
         
     except Exception as e:
-        toast('Không thể phát Hasaki Ringtone', 'Kiểm tra lại Internet.')
+        # toast('Không thể phát Hasaki Ringtone', 'Kiểm tra lại Internet.')
         os._exit(0)
         
    
@@ -145,9 +145,11 @@ def music_hasaki():
                     player.release()
                     vlc_instance.release()
                 else:
-                    toast('Không thể phát Hasaki Music', 'Kiểm tra lại Internet.')
+                    print('lỗi')
+                    # toast('Không thể phát Hasaki Music', 'Kiểm tra lại Internet.')
             else:
-                toast('Không thể phát Hasaki Music', 'Kiểm tra lại Internet.')
+                # toast('Không thể phát Hasaki Music', 'Kiểm tra lại Internet.')
+                print('lỗi')
         except:
             restart_app()
 

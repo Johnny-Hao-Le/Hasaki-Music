@@ -11,8 +11,8 @@ import sys
 
 
 
-location = ip.get()
-#location = '14.241.238.138'
+#location = ip.get()
+location = '14.224.181.101'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -104,9 +104,13 @@ def music_hasaki():
     r = requests.get(api_url)
     data = r.json()
     a = []
-    data = data["data"]["advertisement"]
-    for time_ads in data:
-        a.append(time_ads["begin_time"])
+    try:
+        data = data["data"]["advertisement"]
+        for time_ads in data:
+            a.append(time_ads["begin_time"])
+    except:
+        pass
+    
 
     run_time = datetime.datetime.now().hour
     range_time = (22 <= run_time < 24) or (0 <= run_time < 8)
