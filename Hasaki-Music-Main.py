@@ -16,8 +16,8 @@ from PIL import Image
 # from win11toast import toast
 
 
-#location = ip.get()
-location = '14.241.238.138'
+location = ip.get()
+# location = '14.241.238.138'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -153,13 +153,13 @@ def music_hasaki():
         except:
             restart_app()
 
-    def advertisement():
+    def advertisement(current_time):
         response = requests.get(api_url)
         if response.status_code == 200:
             data_ads = response.json()
             data_ads = data_ads["data"]["advertisement"]
             
-            current_time = datetime.datetime.now().time().strftime("%H:%M:%S")
+            # current_time = datetime.datetime.now().time().strftime("%H:%M:%S")
             for ads in data_ads:
                 if current_time == ads["begin_time"]:
                     ads_mkt = ads["file"]
@@ -211,7 +211,7 @@ def music_hasaki():
     while not range_time:
         current_time = datetime.datetime.now().time().strftime("%H:%M:%S")
         if str(current_time) in a:
-            advertisement()
+            advertisement(current_time)
         else:
             try:        
                 music_stream()
