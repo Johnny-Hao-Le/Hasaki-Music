@@ -93,10 +93,9 @@ def hasaki_ringtone():
                 
                 boxes, scores, class_ids = detect(frame, polygon)
                 for box in boxes:
-                    box_area = calculate_box_area(box)
-                    if polygon_area > 0:
-                        scale_ratio = box_area / polygon_area
-                        if scale_ratio >= 3.80:
+                    for score in scores:
+                        box_area = calculate_box_area(box)
+                        if (box_area >= (3 / 4) * polygon_area and score >= 0.80):
                                 play_mp3("hasakixinchao1.mp3")
                                 time.sleep(10)     
 

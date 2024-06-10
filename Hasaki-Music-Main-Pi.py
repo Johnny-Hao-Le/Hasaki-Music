@@ -12,7 +12,7 @@ import sys
 
 
 location = ip.get()
-# location = '14.224.181.101'
+#location = '117.4.139.203'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -85,12 +85,12 @@ def hasaki_ringtone():
                     break
                 boxes, scores, class_ids = detect(frame, polygon)
                 for box in boxes:
-                    box_area = calculate_box_area(box)
-                    if polygon_area > 0:
-                        scale_ratio = box_area / polygon_area
-                        if scale_ratio >= 3.80:
+                    for score in scores:
+                        box_area = calculate_box_area(box)
+                        if (box_area >= (3 / 4) * polygon_area and score >= 0.80):
                                 play_mp3("hasakixinchao1.mp3")
-                                time.sleep(10)  
+                                time.sleep(10)     
+                                
 
         elif location == '123.30.249.178':
             print('Không thể phát Hasaki Ringtone', 'Đang sử dụng VPN. Hãy tắt VPN và thử lại.')
