@@ -51,8 +51,13 @@ def hasaki_ringtone():
         filtered_boxes = [box for box in boxes if is_point_inside_polygon(((box[0] + box[2]) // 2, (box[1] + box[3]) // 2), polygon)]
         return filtered_boxes, scores, class_ids
     
+    def calculate_polygon_area(polygon):
+        return cv2.contourArea(polygon)
 
-
+    def calculate_box_area(box):
+        x, y, w, h = box
+        return w * h
+    
     try:
         model_url = "https://tenant03-io-api.app.rdhasaki.com/hasaki-voice/model.onnx"
         download_file(model_url, "model.onnx")
@@ -73,19 +78,19 @@ def hasaki_ringtone():
             data_box_load = json.loads(r_box)
             data_box = data_box_load['json_list'][0]['PARAMS']['points']
             polygon = cv2.convexHull(np.array(data_box))
-
+            polygon_area = calculate_polygon_area(polygon)
             while True:
                 ret, frame = cap.read()
                 if not ret:
                     break
-                i = i + 1
-                if i % 5 == 0:
-                    boxes, scores, class_ids = detect(frame, polygon)
-                    if boxes:
-                        for score in scores:
-                            if score >= 0.83:
+                boxes, scores, class_ids = detect(frame, polygon)
+                for box in boxes:
+                    box_area = calculate_box_area(box)
+                    if polygon_area > 0:
+                        scale_ratio = box_area / polygon_area
+                        if scale_ratio >= 3.80:
                                 play_mp3("hasakixinchao1.mp3")
-                                time.sleep(10)     
+                                time.sleep(10)  
 
         elif location == '123.30.249.178':
             print('Không thể phát Hasaki Ringtone', 'Đang sử dụng VPN. Hãy tắt VPN và thử lại.')

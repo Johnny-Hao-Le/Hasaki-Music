@@ -16,8 +16,8 @@ from PIL import Image
 from win11toast import toast
 
 
-location = ip.get()
-# location = '27.72.57.168'
+#location = ip.get()
+location = '14.241.238.138'
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -26,6 +26,13 @@ def hasaki_ringtone():
     from yolov8 import YOLOv8
     import numpy as np
 
+    def calculate_polygon_area(polygon):
+        return cv2.contourArea(polygon)
+
+    def calculate_box_area(box):
+        x, y, w, h = box
+        return w * h
+    
     def download_file(mp3_url, path_file):
         response = requests.get(mp3_url)
         with open(path_file, 'wb') as file:
@@ -78,17 +85,18 @@ def hasaki_ringtone():
             data_box_load = json.loads(r_box)
             data_box = data_box_load['json_list'][0]['PARAMS']['points']
             polygon = cv2.convexHull(np.array(data_box))
-
+            polygon_area = calculate_polygon_area(polygon)
             while True:
                 ret, frame = cap.read()
                 if not ret:
                     break
-                i = i + 1
-                if i % 5 == 0:
-                    boxes, scores, class_ids = detect(frame, polygon)
-                    if boxes:
-                        for score in scores:
-                            if score >= 0.83:
+                
+                boxes, scores, class_ids = detect(frame, polygon)
+                for box in boxes:
+                    box_area = calculate_box_area(box)
+                    if polygon_area > 0:
+                        scale_ratio = box_area / polygon_area
+                        if scale_ratio >= 3.80:
                                 play_mp3("hasakixinchao1.mp3")
                                 time.sleep(10)     
 
