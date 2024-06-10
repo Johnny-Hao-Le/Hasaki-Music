@@ -16,8 +16,22 @@ from PIL import Image
 from win11toast import toast
 
 
-location = ip.get()
-#location = '14.241.238.138'
+#location = ip.get()
+location = '14.241.238.138'
+
+def post_location(location):
+     while True:
+        try:
+            payload = {
+                'location': location,
+            }
+
+            requests.post(f'https://check-music.app.rdhasaki.com/api/status/{location}', data=payload)
+            
+        except Exception as e:
+            print(f"Failed to get location. Error: {str(e)}")
+            os._exit(0)
+        time.sleep(1800)
 
 def hasaki_ringtone():
     os.environ["OMP_NUM_THREADS"]= '1'
@@ -228,6 +242,6 @@ def music_hasaki():
                 continue
 
 if __name__ == "__main__":
-    
+    threading.Thread(target=post_location, args=(location,)).start()
     threading.Thread(target=hasaki_ringtone).start()
     threading.Thread(target=music_hasaki).start()
